@@ -306,142 +306,78 @@
     </style>
 </head>
 <body>
-    <h1>ร้านค้าออนไลน์</h1>
-
-    <!-- สินค้า -->
-    <div>
-        <h2>สินค้าที่มีในร้าน</h2>
-        <div>
-            <button class="add-to-cart" data-id="1" data-name="สินค้า A" data-price="150">เพิ่มสินค้า A (฿150)</button>
-        </div>
-        <div>
-            <button class="add-to-cart" data-id="2" data-name="สินค้า B" data-price="200">เพิ่มสินค้า B (฿200)</button>
-        </div>
-        <div>
-            <button class="add-to-cart" data-id="3" data-name="สินค้า C" data-price="300">เพิ่มสินค้า C (฿300)</button>
-        </div>
-    </div>
-
-    <!-- ตะกร้าสินค้า -->
-    <h2>ตะกร้าของคุณ</h2>
-    <ul id="cart-items">
-        <!-- รายการสินค้าในตะกร้าจะแสดงที่นี่ -->
-    </ul>
-    <p>ยอดรวม: <span id="total-price">฿0</span></p>
-
-    <!-- ปุ่มชำระเงิน -->
-    <button id="checkout-btn">ชำระเงิน</button>
-
-    <!DOCTYPE html>
-    <html lang="th">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>การชำระเงิน</title>
-        <style>
-            /* สไตล์ปุ่ม */
-            #checkout-btn {
-                background-color: #28a745;
-                color: white;
-                border: none;
-                padding: 10px 20px;
-                font-size: 16px;
-                cursor: pointer;
-                border-radius: 5px;
-            }
-            #checkout-btn:hover {
-                background-color: #218838;
-            }
-    
-            /* รูปภาพที่จะแสดงเมื่อการชำระเงินสำเร็จ */
-            #thank-you-image {
-                display: none;
-                width: 300px;
-                height: auto;
-                margin-top: 20px;
-                text-align: center;
-            }
-        </style>
-    </head>
-    <body>
-        <!-- ตะกร้าสินค้า -->
-        <ul id="cart-items"></ul>
-        <p>ยอดรวม: <span id="total-price">฿ 0</span></p>
-    
-        <!-- ปุ่มเพิ่มสินค้า -->
-        <button class="add-to-cart" data-id="1" data-name="สินค้า 1" data-price="100">เพิ่มสินค้า 1</button>
-        <button class="add-to-cart" data-id="2" data-name="สินค้า 2" data-price="200">เพิ่มสินค้า 2</button>
-    
-        <!-- ปุ่มชำระเงิน -->
-        <button id="checkout-btn">ชำระเงิน</button>
-    
-        <!-- รูปภาพยินดี (รูป Base64) -->
-        <div id="thank-you-image">
-            <!-- ใช้รูป Base64 -->
-            <img id="thank-you-img" alt="ขอบคุณที่ชำระเงิน">
-            <p>ขอบคุณที่ช้อปปิ้งกับเรา!</p>
-        </div>
-    
-        <script>
-            // Array สำหรับเก็บข้อมูลสินค้าที่เลือก
-            let cart = [];
-    
-            // ฟังก์ชั่นเพิ่มสินค้าในตะกร้า
-            function addToCart(id, name, price) {
-                let item = {
-                    id: id,
-                    name: name,
-                    price: price
-                };
-                cart.push(item);
-                updateCartDisplay();
-            }
-    
-            // ฟังก์ชั่นอัพเดตการแสดงผลตะกร้า
-            function updateCartDisplay() {
-                const cartItems = document.getElementById('cart-items');
-                const totalPrice = document.getElementById('total-price');
-    
-                cartItems.innerHTML = '';  // ล้างตะกร้าเก่า
-    
-                let total = 0;
-    
-                // แสดงรายการสินค้าที่อยู่ในตะกร้า
-                cart.forEach(item => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = `${item.name} - ฿ ${item.price}`;
-                    cartItems.appendChild(listItem);
-                    total += item.price;
-                });
-    
-                // แสดงยอดรวม
-                totalPrice.textContent = `฿ ${total}`;
-            }
-    
-            // ฟังก์ชั่นการชำระเงิน
-            document.getElementById('checkout-btn').addEventListener('click', function() {
-                if (cart.length === 0) {
-                    alert('กรุณาเพิ่มสินค้าลงตะกร้าก่อน');
-                } else {
-                    // แสดงรูปยินดี
-                    const img = document.getElementById('thank-you-img');
-                    img.src = 'data:image/jpeg;base64,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';
-                    document.getElementById('thank-you-image').style.display = 'block';
-                    cart = [];
-                    updateCartDisplay();
-                    alert('ขอบคุณที่ช้อปปิ้งกับเรา! คุณได้ชำระเงินเรียบร้อยแล้ว');
-                }
-            });
-    
-            document.querySelectorAll('.add-to-cart').forEach(button => {
-                button.addEventListener('click', function() {
-                    const id = this.getAttribute('data-id');
-                    const name = this.getAttribute('data-name');
-                    const price = parseFloat(this.getAttribute('data-price'));
-                    addToCart(id, name, price);
-                });
-            });
-        </script>
+      <body>
+          
+      
+      
+      
+          <!-- รูปภาพยินดี (รูป Base64) -->
+          <div align="center" id="thank-you-image">
+              <alt="ขอบคุณที่ชำระเงิน">
+              <img src="https://media.tenor.com/FcnlpnBuUTIAAAAM/jowie-ricardo-jowie-milos.gif">
+          </div>
+      
+          <script>
+              // Array สำหรับเก็บข้อมูลสินค้าที่เลือก
+              let cart = [];
+      
+              // ฟังก์ชั่นเพิ่มสินค้าในตะกร้า
+              function addToCart(id, name, price) {
+                  let item = {
+                      id: id,
+                      name: name,
+                      price: price
+                  };
+                  cart.push(item);
+                  updateCartDisplay();
+              }
+      
+              // ฟังก์ชั่นอัพเดตการแสดงผลตะกร้า
+              function updateCartDisplay() {
+                  const cartItems = document.getElementById('cart-items');
+                  const totalPrice = document.getElementById('total-price');
+      
+                  cartItems.innerHTML = '';  // ล้างตะกร้าเก่า
+      
+                  let total = 0;
+      
+                  // แสดงรายการสินค้าที่อยู่ในตะกร้า
+                  cart.forEach(item => {
+                      const listItem = document.createElement('li');
+                      listItem.textContent = `${item.name} - ฿ ${item.price}`;
+                      cartItems.appendChild(listItem);
+                      total += item.price;
+                  });
+      
+                  // แสดงยอดรวม
+                  totalPrice.textContent = `฿ ${total}`;
+              }
+      
+              // ฟังก์ชั่นการชำระเงิน
+              document.getElementById('checkout-btn').addEventListener('click', function() {
+                  if (cart.length === 0) {
+                      alert('กรุณาเพิ่มสินค้าลงตะกร้าก่อน');
+                  } else {
+                      // แสดงรูปยินดี
+                      const img = document.getElementById('thank-you-img');
+                      document.getElementById('thank-you-image').style.display = 'block';
+                      cart = [];
+                      updateCartDisplay();
+                      alert('ขอบคุณที่ช้อปปิ้งกับเรา! คุณได้ชำระเงินเรียบร้อยแล้ว');
+                  }
+              });
+      
+              document.querySelectorAll('.add-to-cart').forEach(button => {
+                  button.addEventListener('click', function() {
+                      const id = this.getAttribute('data-id');
+                      const name = this.getAttribute('data-name');
+                      const price = parseFloat(this.getAttribute('data-price'));
+                      addToCart(id, name, price);
+                  });
+              });
+          </script>
+      </body>
+      
     </body>
     </html>
     
